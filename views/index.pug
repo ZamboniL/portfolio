@@ -1,23 +1,24 @@
 extends layout
 
 block content
-  header#header.main-page-header
-    nav
-      a.home-link.black-button(href="#header") Lucas Zamboni Orioli
-      a.nav-link.black-button(href="#about") sobre mim
-      a.nav-link.black-button(href="#my-projects") projetos
-      a.nav-link.primary-button(href="#contact") entre em contato
-    div.header-content
-      div.hero
-        div.hero-content
-          h1.hero-title Desenvolvedor <span>prático</span> e <span>criativo</span>
+  header
+    div.main-page-header
+      nav
+        a.home-link.black-button(href="#header") Lucas Zamboni Orioli
+        a.nav-link.black-button(href="#about") sobre mim
+        a.nav-link.black-button(href="#my-projects") projetos
+        a.nav-link.primary-button(href="#contact") entre em contato
+      div.header-content
+        div.hero
+          div.hero-content
+            h1.hero-title Web Dev <span>criativo</span> e <span>inteligente</span>
 
-          div.button-container
-            button.hero-button.complimentary-button(onclick="location.href='#my-projects'" type="button")
-              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor")
-                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z")
-              span veja meus projetos
-        img(src="./images/noteguy.svg", alt="")
+            div.button-container
+              button.hero-button.complimentary-button(onclick="location.href='#my-projects'" type="button")
+                svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                  path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z")
+                span veja meus projetos
+          img(src="./images/noteguy.svg", alt="")
   div.svg-container
     svg.wave(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 132" fill="none")
         path(d="M640 40.5932C499.887 13.7047 175.5 -62.4068 -163.5 106.593L-281.5 131.593H1514C1536 -2.07344 1584.09 -12.6972 1514 9.59323C1209 106.593 824.5 76 640 40.5932Z" fill="white")
@@ -94,7 +95,7 @@ block content
               path(d="M36.7692 17.0687L20.4067 0.706711C19.465 -0.23557 17.9367 -0.23557 16.9935 0.706711L13.5961 4.10474L17.9061 8.41477C18.908 8.07663 20.0564 8.30345 20.8546 9.10174C21.6571 9.90509 21.8821 11.0632 21.5357 12.0684L25.6896 16.2226C26.6945 15.8761 27.8544 16.1 28.6565 16.9039C29.7787 18.0252 29.7787 19.843 28.6565 20.9649C27.5343 22.0871 25.7172 22.0871 24.5944 20.9649C23.7507 20.1206 23.542 18.8811 23.9695 17.8414L20.0958 13.9678L20.0952 24.1628C20.369 24.2979 20.6269 24.4784 20.8549 24.7055C21.9765 25.8268 21.9765 27.644 20.8549 28.7676C19.7331 29.8889 17.9147 29.8889 16.794 28.7676C15.6724 27.6443 15.6724 25.8271 16.794 24.7055C17.0713 24.4285 17.3919 24.2192 17.7342 24.0791V13.7897C17.3919 13.6496 17.0719 13.4418 16.794 13.163C15.9443 12.3139 15.7398 11.0671 16.1756 10.0232L11.9264 5.77407L0.706933 16.993C-0.235645 17.9361 -0.235645 19.4645 0.706933 20.407L17.0698 36.769C18.0121 37.7113 19.5398 37.7113 20.4836 36.769L36.7695 20.483C37.7118 19.5402 37.7118 18.011 36.7692 17.0687Z")
   section#my-projects
     div.container
-      h2.title <span class="line">meus projetos</span>
+      h2.title <span class="line complimentary-line">meus projetos</span>
       div.my-projects-info
         div.project
           div.project-top
@@ -137,13 +138,13 @@ block content
         div.top-input
           div.name
             label(for="name") Nome:
-            input#name(type="text", name="name" required)
+            input#name(type="text", name="name", placeholder="Seu Nome", required)
           div.email
             label(for="email") Email:
-            input#email(type="email", name="email" required)
+            input#email(type="email", name="email", placeholder="google@gmail.com",  required)
         div.message
           label(for="message") Mensagem:
-          textarea#message(name="message", cols="30", rows="10" required)
+          textarea#message(name="message", cols="30", rows="10", placeholder="blablabla...", required)
         div.form-button
           button(type="submit").primary-button Enviar
   section#return

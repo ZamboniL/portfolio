@@ -22,7 +22,6 @@ body {
   --primary-color-tint: #6697e0;
   --complimentary-color: #FF1053;
   font-family: 'Roboto Slab', serif;
-  background-image: url('../images/home.png');
 }
 
 
@@ -107,6 +106,14 @@ h1, h2, h3, h4 {
   background: var(--complimentary-color);
 }
 
+header {
+  width: 100%;
+  display: flex;
+  place-content: center;
+  padding-bottom: 10em;
+  background-image: url('../images/home.png');
+}
+
 .main-page-header {
   width: 75%;
   display: flex;
@@ -137,11 +144,22 @@ nav {
   place-content: center;
   color: #fff;
   font-weight: 300;
-  margin-bottom: 1em;
+  padding: 5em 0;
 }
 
 .header-content img {
   filter: drop-shadow(15px 15px 2px rgba(0, 0, 0, 0.1));
+  animation-name: bubble;
+  animation-duration: 40s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bubble {
+  20% { transform: translate3d(10px, -25px, 0px); }
+  40% { transform: translate3d(-10px, 25px, 0px); }
+  60% { transform: translate3d(10px, 25px, 0px); }
+  80% { transform: translate3d(10px, -25px, 0px); }
+  100% { transform: translate3d(0px, 0px, 0px); }
 }
 
 .hero {
@@ -181,14 +199,18 @@ nav {
 .svg-container {
   transform: scale(1.5);
   width: 100%;
-  z-index: -1;
+  position: relative;
 }
 
-.wave { transform: skewY(10px); }
+.wave { 
+  position: absolute;
+  top: -10em;
+ }
 
 section {
   width: 100%;
   background: #FCFEFF;
+  padding-top: 10em;
   display: flex;
   justify-content: center;
 }
@@ -220,6 +242,10 @@ section .container {
   height: 50%;
   border-bottom:12px solid var(--primary-color-tint);
   z-index: -1;
+}
+
+.complimentary-line:after {
+  border-bottom:12px solid var(--complimentary-color);
 }
 
 .title { padding-bottom: 5em; }
@@ -293,7 +319,7 @@ section .container {
 .svg-js-internal-color { fill: #fff; }
 
 
-#my-projects { padding-top: 23em;}
+#my-projects { padding-top: 30em;}
 
 .my-projects-info {
   display: flex;
@@ -394,8 +420,12 @@ input[type='text'], input[type='email'], input[type='text'], textarea {
 
 #form button {
   width: 25%;
-  font-size: 1.5rem;
+  font-size: 1.5rem;#
   margin-top: 2em;
+}
+
+#return {
+  padding: 1em;
 }
 
 #return .title {
