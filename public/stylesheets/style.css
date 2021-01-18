@@ -6,13 +6,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .body::selection {
   background: var(--primary-color-tint);
   color: #fff;
 }
 
 .overflow-hide {
-  height: 100%;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -24,7 +27,7 @@ body {
   --primary-color-tint: #6697e0;
   font-family: 'Roboto Slab', serif;
   background-image: url('../images/home.png');
-  height: 100vh;
+  
 }
 
 a {
@@ -38,12 +41,12 @@ h1, h2, h3, h4 {
 }
 
 .primary-button {
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
   box-shadow: -5px 6px 0 var(--primary-color);
 }
 
 .black-button {
-  border: 1px solid #000;
+  border: 2px solid #000;
   box-shadow: -5px 6px 0 #000;
 }
 .primary-button, .black-button {
@@ -314,3 +317,55 @@ section .container {
   fill: #fff;
 }
 
+#form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+  box-shadow: -5px 6px 0 #000;
+  padding: 1em;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 5em;
+}
+
+.top-input {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+
+.top-input label { margin-right:0.5em; }
+
+.top-input input { width: 16em; }
+
+input[type='text'], input[type='email'], input[type='text'], textarea {
+  border: 2px solid #000;
+  font-size: 1.5rem;
+  padding: 0.2rem;
+  border-radius: none;
+  outline: none;
+  resize: none;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
+#form button {
+  width: 25%;
+  font-size: 1.5rem;
+  margin-top: 2em;
+}
+
+#return .title {
+  display: flex;
+  justify-content: center;
+}
