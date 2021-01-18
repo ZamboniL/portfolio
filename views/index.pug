@@ -10,20 +10,20 @@ block content
     div.header-content
       div.hero
         div.hero-content
-          h1.hero-title Eu sou um <span>desenvolvedor</span> que curte trabalhar sua <span>criatividade</span>
-          p.hero-subtitle Desenvolvedor FullStack
+          h1.hero-title Desenvolvedor <span>prático</span> e <span>criativo</span>
+
           div.button-container
-            button.hero-button.primary-button(onclick="location.href='#my-projects'" type="button")
+            button.hero-button.complimentary-button(onclick="location.href='#my-projects'" type="button")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor")
                 path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z")
-              | meus projetos
+              span veja meus projetos
         img(src="./images/noteguy.svg", alt="")
   div.svg-container
     svg.wave(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 132" fill="none")
         path(d="M640 40.5932C499.887 13.7047 175.5 -62.4068 -163.5 106.593L-281.5 131.593H1514C1536 -2.07344 1584.09 -12.6972 1514 9.59323C1209 106.593 824.5 76 640 40.5932Z" fill="white")
   section#about
     div.container
-      h2.title <span>sobre mim</span>
+      h2.title <span class="line">sobre mim</span>
       div.about-info
         img(src="./images/me.png", alt="picture of myself")
         div.about-text-socials
@@ -47,7 +47,7 @@ block content
                 path(d="M111.25,2.16H16.75A14.59,14.59,0,0,0,2.16,16.75v94.49a14.59,14.59,0,0,0,14.59,14.59h94.49a14.59,14.59,0,0,0,14.59-14.59V16.75A14.59,14.59,0,0,0,111.25,2.16ZM79.86,32.92h28.38V41.4H79.86ZM65.51,77.36c0,21-21.85,20.31-21.85,20.31H7.86V28.87h35.8c10.88,0,19.47,6,19.47,18.32s-10.5,13.09-10.5,13.09C66.47,60.28,65.51,77.36,65.51,77.36Zm53.09-1.12H83c0,12.78,12.11,12,12.11,12,11.43,0,11-7.4,11-7.4H118.2c0,19.64-23.54,18.29-23.54,18.29-28.25,0-26.43-26.3-26.43-26.3s0-26.43,26.43-26.43C122.51,46.38,118.61,76.24,118.61,76.24Z")
   section#tech-stack
     div.container
-      h2.title <span>tecnologias conhecidas</span>
+      h2.title <span class="line">tecnologias conhecidas</span>
       div.tech-stack-info
         div.svg-fiesta
           a#html5(href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/HTML5" target="_blank")
@@ -94,7 +94,7 @@ block content
               path(d="M36.7692 17.0687L20.4067 0.706711C19.465 -0.23557 17.9367 -0.23557 16.9935 0.706711L13.5961 4.10474L17.9061 8.41477C18.908 8.07663 20.0564 8.30345 20.8546 9.10174C21.6571 9.90509 21.8821 11.0632 21.5357 12.0684L25.6896 16.2226C26.6945 15.8761 27.8544 16.1 28.6565 16.9039C29.7787 18.0252 29.7787 19.843 28.6565 20.9649C27.5343 22.0871 25.7172 22.0871 24.5944 20.9649C23.7507 20.1206 23.542 18.8811 23.9695 17.8414L20.0958 13.9678L20.0952 24.1628C20.369 24.2979 20.6269 24.4784 20.8549 24.7055C21.9765 25.8268 21.9765 27.644 20.8549 28.7676C19.7331 29.8889 17.9147 29.8889 16.794 28.7676C15.6724 27.6443 15.6724 25.8271 16.794 24.7055C17.0713 24.4285 17.3919 24.2192 17.7342 24.0791V13.7897C17.3919 13.6496 17.0719 13.4418 16.794 13.163C15.9443 12.3139 15.7398 11.0671 16.1756 10.0232L11.9264 5.77407L0.706933 16.993C-0.235645 17.9361 -0.235645 19.4645 0.706933 20.407L17.0698 36.769C18.0121 37.7113 19.5398 37.7113 20.4836 36.769L36.7695 20.483C37.7118 19.5402 37.7118 18.011 36.7692 17.0687Z")
   section#my-projects
     div.container
-      h2.title <span>meus projetos</span>
+      h2.title <span class="line">meus projetos</span>
       div.my-projects-info
         div.project
           div.project-top
@@ -132,7 +132,7 @@ block content
                 path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
   section#contact
     div.container
-      h2.title <span>entre em contato comigo</span>
+      h2.title <span class="line">entre em contato comigo</span>
       form#form(action="/" method="post")
         div.top-input
           div.name
