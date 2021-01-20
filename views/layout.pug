@@ -1,9 +1,18 @@
 doctype html
-html
+html(lang="pt-br")
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+
+
+    link(rel="preload", href="./fonts/roboto-slab-v12-latin-300.woff2", as="font", type="font/woff2", crossorigin="anonymous")
+    link(rel="preload", href="./fonts/roboto-slab-v12-latin-500.woff2", as="font", type="font/woff2", crossorigin="anonymous")
+    link(rel="preload", href="./fonts/roboto-slab-v12-latin-700.woff2", as="font", type="font/woff2", crossorigin="anonymous")
+    link(rel="preload", href='/stylesheets/style.css', as="style")
+
+
+    link(rel="stylesheet", href="/stylesheets/style.css")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Web Portifolio do fullstack developer Lucas Zamboni Orioli.")
   body
     div.overflow-hide
       block content
