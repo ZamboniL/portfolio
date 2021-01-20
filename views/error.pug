@@ -1,6 +1,7 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  h1.title( style="display: flex; place-items:center;flex-direction:column;padding:2em") 
+    span(style="text-decoration: underline;") 404
+    img.vanish(src="/images/404.svg", alt="alt", height="700px")
+    span A página que estava procurando não foi encontrada.
