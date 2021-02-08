@@ -9,16 +9,15 @@ block content
           li
             a.nav-link.black-button(href="#about") sobre mim
           li
-            a.nav-link.black-button(href="#my-projects") projetos
+            a.nav-link.black-button(href="#projects") projetos
           li
             a.nav-link.primary-button(href="#contact") entre em contato
-
       div.header-content
         div.hero
           div.hero-content
             h1.hero-title Web Dev <span>criativo</span> e <span>inteligente</span>
             div.button-container
-              button.hero-button.complimentary-button(onclick="location.href='#my-projects'" type="button")
+              a.hero-button.complimentary-button(href="#projects")
                 svg( fill="none" viewBox="0 0 24 24" stroke="currentColor")
                   path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z")
                 span <span class="vanish">veja</span> meus projetos
@@ -91,14 +90,12 @@ block content
               path(d="M36.77 17.069L20.406.707a2.414 2.414 0 00-3.413 0l-3.398 3.398 4.31 4.31a2.865 2.865 0 013.63 3.653l4.154 4.155a2.87 2.87 0 012.967 4.742 2.871 2.871 0 01-4.688-3.124l-3.873-3.873v10.195a2.873 2.873 0 11-2.361-.084V13.79a2.871 2.871 0 01-1.559-3.767l-4.25-4.248L.706 16.993a2.414 2.414 0 000 3.414L17.07 36.769c.942.942 2.47.942 3.414 0l16.285-16.286a2.415 2.415 0 000-3.414z")
     section#my-projects
       h2.title <span class="line complimentary-line">Meus projetos</span>
-      div.my-projects-info
+      div#projects.my-projects-info
         div.project
           img(src="./images/projetos_002.svg", alt="", height="100%", width="50%", loading="lazy")
           div.project-content
             h3.project-title Portfólio
             span.project-description Meu portfólio feito com express e o html e css padrão, com o intuito de ter a melhor performance possivel (100% no lighthouse).
-
-
             div.github-container
               a(href="https://github.com/ZamboniL/portfolio")
                 span.github.primary-button Veja o Site
@@ -161,4 +158,4 @@ block content
           button(type="submit").primary-button Enviar
     section#return
       a.title(href="#header") 
-        span.black-button Lucas Zamboni Orioli
+        span.black-button Voltar ao topo
