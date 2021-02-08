@@ -1,13 +1,18 @@
 extends layout
 
 block content
-  header
+  header#header
     div.main-page-header
       nav
         a.home-link.black-button(href="#header") Lucas Zamboni Orioli
-        a.nav-link.black-button(href="#about") sobre mim
-        a.nav-link.black-button(href="#my-projects") projetos
-        a.nav-link.primary-button(href="#contact") entre em contato
+        ul
+          li
+            a.nav-link.black-button(href="#about") sobre mim
+          li
+            a.nav-link.black-button(href="#my-projects") projetos
+          li
+            a.nav-link.primary-button(href="#contact") entre em contato
+
       div.header-content
         div.hero
           div.hero-content
@@ -24,10 +29,9 @@ block content
   main
     section#about
       h2.title <span class="line">Sobre mim</span>
-      div.about
-        div.about-info
-          img(src="./images/me.png", alt="foto minha", height="150px", width="150px", loading="lazy")
-          span Ola, me chamo Lucas Zamboni Orioli, sou um estudante de contabilidade que se apaixonou por programação e tecnologia, além de amar cozinhar! Eu sinto que agora estou finalmente preparado para seguir uma carreira de desenvolvedor.
+      div.about-info
+        img(src="./images/me.png", alt="foto minha", height="150px", width="150px", loading="lazy")
+        span Ola, me chamo Lucas Zamboni Orioli, sou um estudante de contabilidade que se apaixonou por programação e tecnologia, além de amar cozinhar! Eu sinto que agora estou finalmente preparado para seguir uma carreira de desenvolvedor.
     section#tech-stack
       h2.title <span class="line">Conhecimentos</span>
       div.tech-stack-info
@@ -89,32 +93,37 @@ block content
       h2.title <span class="line complimentary-line">Meus projetos</span>
       div.my-projects-info
         div.project
-          img(src="./images/mini.png", alt="", height="100%", width="50%", loading="lazy")
+          img(src="./images/projetos_002.svg", alt="", height="100%", width="50%", loading="lazy")
           div.project-content
-            h3.project-title Project Name
-            span.project-description Oi testando adsdassdasdasdasdasdasdasdsaadasdasdasdaadsdsasda
+            h3.project-title Portfólio
+            span.project-description Meu portfólio feito com express e o html e css padrão, com o intuito de ter a melhor performance possivel (100% no lighthouse).
+
+
             div.github-container
-              span.github.black-button Veja o Repositório
-                svg.svg-github( viewBox="0 0 24 24")
-                  path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
+              a(href="https://github.com/ZamboniL/portfolio")
+                span.github.primary-button Veja o Site
+              a(href="https://github.com/ZamboniL/portfolio")
+                span.github.black-button Veja o Repositório
+                  svg.svg-github( viewBox="0 0 24 24")
+                    path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
         div.project.reverse-project
-          img(src="./images/mini.png", alt="", height="100%", width="50%", loading="lazy")
+          img(src="./images/projetos_003.jpg", alt="", height="100%", width="50%", loading="lazy")
           div.project-content
-            h3.project-title Project Name
-            span.project-description Oi testando adsdassdasdasdasdasdasdasdsaadasdasdasdaadsdsasda
+            h3.project-title Zat
+            span.project-description Site de conversas em grupo instantâneas, criado inteiramente por mim tanto a backend, aonde eu utilizei express para a api, socket.io e cloud storage, quanto a frontend criada em nextjs e styled-components para o styling
             div.github-container
-              span.github.black-button Veja o Repositório
-                svg.svg-github( viewBox="0 0 24 24")
-                  path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
+              a(href="https://zat-eight.vercel.app/")
+                span.github.primary-button Veja o Site
+              a(href="https://github.com/ZamboniL/zat")
+                span.github.black-button
+                  | Veja o Repositório
+                  svg.svg-github( viewBox="0 0 24 24")
+                    path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
         div.project
-          img(src="./images/mini.png", alt="", height="100%", width="50%", loading="lazy")
+          img(src="./images/projetos_001.svg", alt="", height="100%", width="50%", loading="lazy")
           div.project-content
-            h3.project-title Project Name
-            span.project-description Oi testando adsdassdasdasdasdasdasdasdsaadasdasdasdaadsdsasda
-            div.github-container
-              span.github.black-button Veja o Repositório
-                svg.svg-github( viewBox="0 0 24 24")
-                  path(d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z")
+            h3.project-title Noty
+            span.project-description Noty é um web app de anotação, aonde o usuário pode criar notas novas como lembretes. Ainda esta muito cedo em seu desenvolvimento para apresenta-lo mas logo terei um MVP disponível.
     section#contact
       h2.title <span class="line">Entre em contato <span class=vanish>comigo</span></span>
       div.contact-socials
@@ -141,13 +150,13 @@ block content
         div.top-input
           div.name
             label(for="name") Nome:
-            input#name(type="text", name="name", placeholder="Seu Nome", required)
+            input#name(type="text", name="name", required)
           div.email
             label(for="email") Email:
-            input#email(type="email", name="email", placeholder="google@gmail.com",  required)
+            input#email(type="email", name="email",  required)
         div.message
           label(for="message") Mensagem:
-          textarea#message(name="message", cols="30", rows="10", placeholder="blablabla...", required)
+          textarea#message(name="message", cols="30", rows="10", required)
         div.form-button
           button(type="submit").primary-button Enviar
     section#return

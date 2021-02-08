@@ -1,37 +1,41 @@
 /* roboto-slab-500 - latin */
 
 @font-face {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-style: normal;
   font-weight: 500;
-  src: local(''), url('../fonts/roboto-slab-v12-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-  url('../fonts/roboto-slab-v12-latin-500.woff') format('woff');
+  src: local(""),
+    url("../fonts/roboto-slab-v12-latin-500.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../fonts/roboto-slab-v12-latin-500.woff") format("woff");
   font-display: swap;
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
-
 
 /* roboto-slab-300 - latin */
 
 @font-face {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-style: normal;
   font-weight: 300;
-  src: local(''), url('../fonts/roboto-slab-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-  url('../fonts/roboto-slab-v12-latin-300.woff') format('woff');
+  src: local(""),
+    url("../fonts/roboto-slab-v12-latin-300.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../fonts/roboto-slab-v12-latin-300.woff") format("woff");
   font-display: swap;
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-
 /* roboto-slab-700 - latin */
 
 @font-face {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-style: normal;
   font-weight: 700;
-  src: local(''), url('../fonts/roboto-slab-v12-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-  url('../fonts/roboto-slab-v12-latin-700.woff') format('woff');
+  src: local(""),
+    url("../fonts/roboto-slab-v12-latin-700.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../fonts/roboto-slab-v12-latin-700.woff") format("woff");
   font-display: swap;
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
@@ -47,6 +51,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 .overflow-hide {
@@ -59,13 +64,13 @@ html {
 }
 
 body {
-  --primary-color: #0051CB;
+  --primary-color: #0051cb;
   --primary-color-tint: #8baee2;
-  --complimentary-color: #FF1053;
+  --complimentary-color: #ff1053;
   --complimentary-color-tint: #fa628d;
   --lighter-black: rgb(27, 27, 27);
   --black: rgb(20, 20, 20);
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 300;
 }
 
@@ -84,6 +89,15 @@ h3,
 h4 {
   font-weight: inherit;
   font-size: inherit;
+}
+
+ul {
+  display: flex;
+}
+
+li {
+  list-style: none;
+  padding-left: 5em;
 }
 
 .primary-button {
@@ -171,11 +185,12 @@ header {
   display: flex;
   flex-direction: column;
   place-items: center;
-  background-image: url('../images/mini.png');
+  background-image: url("../images/mini.png");
 }
 
 .main-page-header {
   width: 75%;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -185,6 +200,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 1em;
 }
 
 .nav-link {
@@ -196,7 +212,6 @@ nav {
 .home-link {
   font-size: 2rem;
   font-weight: 700;
-  margin-right: 5em;
 }
 
 .header-content {
@@ -262,8 +277,8 @@ nav {
 
 .hero-button svg {
   height: 1em;
-  margin: .2em .25em 0 0;
-  margin-top: .2em;
+  margin: 0.2em 0.25em 0 0;
+  margin-top: 0.2em;
 }
 
 .svg-container {
@@ -280,7 +295,8 @@ main {
 
 section {
   padding-top: 10em;
-  width: calc(75% * 0.70);
+  width: calc(75% * 0.7);
+  max-width: 1000px;
 }
 
 .title span {
@@ -290,7 +306,7 @@ section {
 }
 
 .line:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 6px;
   left: -0px;
@@ -308,21 +324,15 @@ section {
   padding-bottom: 3em;
 }
 
-.about {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  font-size: 2rem;
-}
-
 .about-info {
   display: flex;
   align-items: center;
   color: var(--lighter-black);
+  font-size: 2rem;
 }
 
-.about img {
-  margin: 2em 2em 2em 0;
+.about-info span {
+  padding: 0 2em;
 }
 
 .tech-stack-info {
@@ -375,10 +385,6 @@ section {
   flex-wrap: wrap;
 }
 
-.my-projects-info .project {
-  margin: 0 1em 5em 1em;
-}
-
 .project {
   display: flex;
   width: 100%;
@@ -386,6 +392,7 @@ section {
   border: 2px solid var(--black);
   box-shadow: -6px 5px 0 var(--black);
   overflow: hidden;
+  margin: 0 0 5em 0;
 }
 
 .reverse-project {
@@ -432,6 +439,7 @@ section {
   display: inline-flex;
   align-items: center;
   font-size: 1.25em;
+  margin-right: 2rem;
 }
 
 .svg-github {
@@ -447,7 +455,7 @@ section {
 .contact-socials {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: -.5em;
+  margin-bottom: -0.5em;
 }
 
 .contact-socials span {
@@ -482,9 +490,9 @@ section {
   width: 100%;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='text'],
+input[type="text"],
+input[type="email"],
+input[type="text"],
 textarea {
   border: 2px solid var(--black);
   font-size: 1.5rem;
@@ -523,8 +531,8 @@ textarea {
   .nav-link {
     font-size: unset;
   }
-  .about {
-    font-size: 1.5em
+  .about-info {
+    font-size: 1.5em;
   }
 }
 
@@ -539,7 +547,7 @@ textarea {
   .home-link {
     margin-right: unset;
   }
-  .nav-link {
+  ul {
     display: none;
   }
   .hero {
@@ -574,7 +582,7 @@ textarea {
   .hero-title {
     font-size: 3em;
   }
-  .about {
+  .about-info {
     padding-bottom: 3em;
   }
   .title span {
@@ -605,8 +613,9 @@ textarea {
   section {
     padding: 1em 2em;
   }
-  .about {
-    font-size: unset;
+  .about-info {
+    font-size: 1.25em;
+    line-height: 1.5em;
   }
   .svg-fiesta svg {
     height: 3em;
@@ -623,8 +632,11 @@ textarea {
   .about-info {
     flex-direction: column;
   }
+  .about-info span {
+    padding: 2em 0;
+  }
   .svg-fiesta svg {
-    margin: .5em;
+    margin: 0.5em;
   }
   .svg-fiesta svg:hover {
     fill: inherit;
@@ -634,6 +646,9 @@ textarea {
     flex-direction: column;
     min-height: 25em;
   }
+  .reverse-project {
+    flex-direction: column-reverse;
+  }
   .project img {
     height: 50%;
     width: 100%;
@@ -642,11 +657,11 @@ textarea {
     font-size: 1.5em;
   }
   .project-description {
-    padding: 1em .5em;
+    padding: 1em 0.5em;
   }
-  input[type='text'],
-  input[type='email'],
-  input[type='text'],
+  input[type="text"],
+  input[type="email"],
+  input[type="text"],
   textarea {
     width: 100%;
   }
