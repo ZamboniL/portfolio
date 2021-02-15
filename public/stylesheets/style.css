@@ -305,7 +305,7 @@ section {
   position: relative;
 }
 
-.line:after {
+.li:after {
   content: "";
   position: absolute;
   top: 6px;
