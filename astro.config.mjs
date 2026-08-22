@@ -1,35 +1,35 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
-	fonts: [
-		{
-			provider: fontProviders.local(),
-			name: 'Lora',
-			cssVariable: '--font-lora',
-			fallbacks: ['serif'],
-			options: {
-				variants: [
-					{
-						src: ['./src/assets/fonts/Lora-VariableFont_wght.ttf'],
-						weight: "400 700",
-						style: 'normal',
-						display: 'swap',
-					},
-					{
-						src: ['./src/assets/fonts/Lora-Italic-VariableFont_wght.ttf'],
-						weight: "400 700",
-						style: 'italic',
-						display: 'swap',
-					},
-				],
-			},
-		},
-	],
+  fonts: [
+    {
+      cssVariable: "--font-lora",
+      fallbacks: ["serif"],
+      name: "Lora",
+      options: {
+        variants: [
+          {
+            display: "swap",
+            src: ["./src/assets/fonts/Lora-VariableFont_wght.ttf"],
+            style: "normal",
+            weight: "400 700",
+          },
+          {
+            display: "swap",
+            src: ["./src/assets/fonts/Lora-Italic-VariableFont_wght.ttf"],
+            style: "italic",
+            weight: "400 700",
+          },
+        ],
+      },
+      provider: fontProviders.local(),
+    },
+  ],
+  integrations: [mdx(), sitemap()],
+  site: "https://example.com",
 });

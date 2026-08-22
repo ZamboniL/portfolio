@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "warn",
+    "perf": "warn",
+    "style": "warn"
+  },
+  "rules": {
+    "unicorn/filename-case": "off",
+    "one-var": "off",
+    "no-magic-numbers": "off",
+    "func-style": [
+      "warn",
+      "declaration"
+    ],
+    "id-length": "off"
+  },
+  "env": {
+    "builtin": true
+  },
+}
