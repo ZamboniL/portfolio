@@ -20,15 +20,19 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: rgb(var(--gray-dark));
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.7;
 }
-main {
-  width: 720px;
-  max-width: calc(100% - 2em);
+header,main,footer {
+  width: 696px;
   margin: auto;
-  padding: 3em 1em;
+  max-width: calc(100% - 2em);
 }
+
+main {
+  padding: 0em 1em;
+}
+
 h1,
 h2,
 h3,
@@ -43,7 +47,7 @@ h1 {
   font-size: 3.052em;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 2.25rem;
 }
 h3 {
   font-size: 1.953em;
