@@ -6,6 +6,16 @@
   "editor.codeActionsOnSave": {
     "source.format.oxc": "always"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+  },
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode",
     "editor.formatOnSave": true
