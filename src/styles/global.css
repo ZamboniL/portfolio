@@ -13,7 +13,8 @@
   --animation-delay: -0.1s;
 }
 
-html, body {
+html,
+body {
   display: flex;
   height: 100%;
   align-items: center;
@@ -33,7 +34,9 @@ body {
 
   animation: bg 200s infinite var(--animation-delay) ease-in-out;
 }
-header,main,footer {
+header,
+main,
+footer {
   width: 696px;
   max-width: calc(100% - 2em);
 }
@@ -151,18 +154,22 @@ hr {
 
 @keyframes bg {
   0% {
-    background-color: #D9DCFF;
+    background-color: #d9dcff;
   }
 
-  33% {
-    background-color: #FFDDF5;
+  25% {
+    background-color: #ffddf5;
   }
 
-  66% {
-    background-color: #E7CCFF;
+  50% {
+    background-color: #e7ccff;
+  }
+
+  75% {
+    background-color: #E0FFE2;
   }
 
   100% {
-    background-color: #D9DCFF;
+    background-color: #d9dcff;
   }
 }

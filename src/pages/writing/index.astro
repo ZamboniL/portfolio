@@ -7,7 +7,7 @@ import Header from "../../components/Header.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const blog = await getCollection("blog");
+const blog = await getCollection("writing");
 
 const posts = blog.toSorted(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -96,7 +96,7 @@ const posts = blog.toSorted(
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
+								<a href={`/writing/${post.id}/`}>
 									{post.data.heroImage && (
 										<Image
 											width={720}

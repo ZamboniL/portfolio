@@ -30,6 +30,10 @@ export default defineConfig({
       provider: fontProviders.local(),
     },
   ],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "pt-br"],
+  },
   integrations: [mdx(), sitemap()],
   site: "https://example.com",
 });
