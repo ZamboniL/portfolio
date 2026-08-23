@@ -6,6 +6,8 @@ import Post from "#components/Post.astro";
 import { getCollection } from "astro:content";
 import { useTranslations } from "#i18n/helper.ts";
 import { withLocales } from "#i18n/paths.ts";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { DEFAULT_LOCALE } from "#i18n/consts.ts";
 
 export function getStaticPaths() {
 	return withLocales();
@@ -35,7 +37,7 @@ const t = useTranslations(Astro.currentLocale, "home");
 			<div class="writing">
 				<div class="writing-header">
 					<h2>{t("writing.title")}</h2>
-					<a href="/blog">{t("writing.all")}{" >"}</a>
+					<a href={getRelativeLocaleUrl(Astro.currentLocale ?? DEFAULT_LOCALE, '/writing')}>{t("writing.all")}{" >"}</a>
 				</div>
 				<ul>
 					{

@@ -20,7 +20,7 @@ const translations = {
     },
     nav: {
       about: "about",
-      locale: "EN",
+      locale: "en",
       writing: "writing",
     },
     writing: {
@@ -47,7 +47,7 @@ const translations = {
     },
     nav: {
       about: "sobre",
-      locale: "PT-BR",
+      locale: "pt-br",
       writing: "escrita",
     },
     writing: {
