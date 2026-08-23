@@ -1,13 +1,13 @@
 ---
 import BaseHead from "#components/BaseHead.astro";
+import { DEFAULT_LOCALE } from "#i18n/consts.ts";
 import Footer from "#components/Footer.astro";
 import Header from "#components/Header.astro";
 import Post from "#components/Post.astro";
 import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "#i18n/helper.ts";
 import { withLocales } from "#i18n/paths.ts";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { DEFAULT_LOCALE } from "#i18n/consts.ts";
 
 export function getStaticPaths() {
 	return withLocales();
