@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+}
+
+const { date, description, title, href } = Astro.props;
+
+const formatDate = new Intl.DateTimeFormat(Astro.currentLocale, {
+  dateStyle: "long",
+});
+
+const formattedDate = formatDate.format(date);
+---
+
+<li>
+  <a href={href}>
+    <strong>{title}</strong>
+    <br />
+    <span>
+      {description}
+    </span>
+    <br />
+    <small>{formattedDate}</small>
+  </a>
+</li>
+
+<style>
+  a {
+    text-decoration: none;
+    color: var(--gray);
+    padding: 1.5rem 2rem;
+    display: block;
+  }
+
+  strong {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+
+  li {
+    border-radius: 16px;
+    cursor: pointer;
+    transition: 1.75s cubic-bezier(0.075, 0.82, 0.165, 1) box-shadow;
+  }
+
+  span {
+    font-style: italic;
+  }
+
+  li:hover {
+    box-shadow:
+      0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14),
+      0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+</style>

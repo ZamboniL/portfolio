@@ -3,6 +3,14 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import Post from "../components/Post.astro";
+import { getCollection } from "astro:content";
+
+const blog = await getCollection("writing");
+
+const posts = blog.toSorted(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <!doctype html>
@@ -24,30 +32,16 @@ import Header from "../components/Header.astro";
 					<a href="/blog">View all{" >"}</a>
 				</div>
 				<ul>
-					<li>
-						<a href="/blog/2024-06-05-astro-v3.0.0-release-notes">
-							<strong>Important Stuff</strong>
-						</a>
-						<br />
-						<span>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-							in nulla nec quam tincidunt iaculis eu sed est.
-						</span>
-						<br />
-						<small>June 5, 2024</small>
-					</li>
-					<li>
-						<a href="/blog/2024-05-30-astro-v2.9.0-release-notes">
-							<strong>Important Stuff</strong>
-						</a>
-						<br />
-						<span>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-							in nulla nec quam tincidunt iaculis eu sed est.
-						</span>
-						<br />
-						<small>May 30, 2024</small>
-					</li>
+					{
+						posts.map((post) => (
+							<Post
+								title={post.data.title}
+								description={post.data.description}
+								href={`/writing/${post.id}`}
+								date={post.data.pubDate}
+							/>
+						))
+					}
 				</ul>
 			</div>
 		</main>
@@ -88,14 +82,5 @@ import Header from "../components/Header.astro";
 		text-decoration: none;
 		font-size: 0.75rem;
 		color: var(--gray);
-	}
-
-	li a {
-		text-decoration: none;
-		font-size: 1.5rem;
-	}
-
-	span {
-		font-style: italic;
 	}
 </style>
