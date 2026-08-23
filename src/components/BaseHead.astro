@@ -49,3 +49,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site),
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		// Random delay between 0 and -200 seconds
+		const randomDelay = Math.random() * 200 * -1;
+		document.documentElement.style.setProperty(
+			"--animation-delay",
+			`${randomDelay}s`,
+		);
+	});
+</script>
