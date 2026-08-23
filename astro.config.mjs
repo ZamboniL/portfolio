@@ -33,6 +33,9 @@ export default defineConfig({
   i18n: {
     defaultLocale: "en",
     locales: ["en", "pt-br"],
+    routing: {
+      prefixDefaultLocale: true,
+    },
   },
   integrations: [mdx(), sitemap()],
   site: "https://example.com",

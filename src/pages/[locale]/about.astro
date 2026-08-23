@@ -1,5 +1,10 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import Layout from "#layouts/BlogPost.astro";
+import { withLocales } from "#i18n/paths.ts";
+
+export function getStaticPaths() {
+	return withLocales();
+}
 ---
 
 <Layout

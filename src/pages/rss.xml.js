@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
-import { useTranslations } from "../i18n/helper";
+import { useTranslations } from "#i18n/helper.ts";
 
 export async function GET(context) {
   const posts = await getCollection("blog");
