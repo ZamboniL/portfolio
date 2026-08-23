@@ -52,14 +52,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site),
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 
-<ClientRouter  />
+<ClientRouter />
+
 <script>
-	document.addEventListener("DOMContentLoaded", () => {
-		// Random delay between 0 and -200 seconds
-		const randomDelay = Math.random() * 200 * -1;
+	const CYCLE_SECONDS = 200;
+	const STORAGE_KEY = "animation-start";
+
+	function applyAnimationDelay() {
+		let start = sessionStorage.getItem(STORAGE_KEY);
+		if (start === null) {
+			start = `${Date.now() - Math.random() * CYCLE_SECONDS * 1000}`;
+			sessionStorage.setItem(STORAGE_KEY, start);
+		}
+		const elapsed = ((Date.now() - Number(start)) / 1000) % CYCLE_SECONDS;
 		document.documentElement.style.setProperty(
 			"--animation-delay",
-			`${randomDelay}s`,
+			`-${elapsed}s`,
 		);
-	});
+	}
+
+	applyAnimationDelay();
+	document.addEventListener("astro:after-swap", applyAnimationDelay);
 </script>
