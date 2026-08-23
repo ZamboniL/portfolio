@@ -47,7 +47,7 @@ const translations = {
     },
     nav: {
       about: "sobre",
-      locale: "PTBR",
+      locale: "PT-BR",
       writing: "escrita",
     },
     writing: {

@@ -1,18 +1,37 @@
 ---
+import { DEFAULT_LOCALE, LOCALES } from "#i18n/consts.ts";
 import HeaderLink from "./HeaderLink.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "../i18n/helper";
 
-const tNav = useTranslations(Astro.currentLocale, "nav");
-const tHead = useTranslations(Astro.currentLocale, "head");
+const currentLocale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const otherLocale =
+	LOCALES.find((locale) => locale !== currentLocale) ?? DEFAULT_LOCALE;
+
+const t = useTranslations(currentLocale, "nav");
+const tHead = useTranslations(currentLocale, "head");
+
+const pathWithoutLocale =
+	Astro.url.pathname.replace(`/${currentLocale}`, "") || "/";
 ---
 
 <header>
 	<nav>
-		<h2><HeaderLink href="/">{tHead("title")}</HeaderLink></h2>
+		<h2>
+			<HeaderLink href={getRelativeLocaleUrl(currentLocale, "/")}>
+				{tHead("title")}
+			</HeaderLink>
+		</h2>
 		<div class="internal-links">
-			<HeaderLink href="/writing">{tNav("writing")}</HeaderLink>
-			<HeaderLink href="/about">{tNav("about")}</HeaderLink>
-			<HeaderLink href="/#en">{tNav("locale")}</HeaderLink>
+			<HeaderLink href={getRelativeLocaleUrl(currentLocale, "/writing")}>
+				{t("writing")}
+			</HeaderLink>
+			<HeaderLink href={getRelativeLocaleUrl(currentLocale, "/about")}>
+				{t("about")}
+			</HeaderLink>
+			<HeaderLink href={getRelativeLocaleUrl(otherLocale, pathWithoutLocale)}>
+				{t("locale")}
+			</HeaderLink>
 		</div>
 	</nav>
 </header>

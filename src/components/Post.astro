@@ -1,4 +1,7 @@
 ---
+import { DEFAULT_LOCALE } from "#i18n/consts.ts";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
 interface Props {
   title: string;
   description: string;
@@ -13,10 +16,15 @@ const formatDate = new Intl.DateTimeFormat(Astro.currentLocale, {
 });
 
 const formattedDate = formatDate.format(date);
+
+const hrefWithLocale = getRelativeLocaleUrl(
+  Astro.currentLocale ?? DEFAULT_LOCALE,
+  href,
+);
 ---
 
 <li>
-  <a href={href}>
+  <a href={hrefWithLocale}>
     <strong>{title}</strong>
     <br />
     <span>
