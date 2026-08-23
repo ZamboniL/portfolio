@@ -1,11 +1,8 @@
 ---
 import BaseHead from "#components/BaseHead.astro";
-import { DEFAULT_LOCALE } from "#i18n/consts.ts";
 import Footer from "#components/Footer.astro";
 import Header from "#components/Header.astro";
-import Post from "#components/Post.astro";
-import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import WritingSection from "#components/WritingSection.astro";
 import { useTranslations } from "#i18n/helper.ts";
 import { withLocales } from "#i18n/paths.ts";
 
@@ -13,11 +10,6 @@ export function getStaticPaths() {
 	return withLocales();
 }
 
-const blog = await getCollection("writing");
-
-const posts = blog.toSorted(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 const tHead = useTranslations(Astro.currentLocale, "head");
 const t = useTranslations(Astro.currentLocale, "home");
 ---
@@ -34,24 +26,7 @@ const t = useTranslations(Astro.currentLocale, "home");
 				{t("intro")}
 			</p>
 
-			<div class="writing">
-				<div class="writing-header">
-					<h2>{t("writing.title")}</h2>
-					<a href={getRelativeLocaleUrl(Astro.currentLocale ?? DEFAULT_LOCALE, '/writing')}>{t("writing.all")}{" >"}</a>
-				</div>
-				<ul>
-					{
-						posts.map((post) => (
-							<Post
-								title={post.data.title}
-								description={post.data.description}
-								href={`/writing/${post.id}`}
-								date={post.data.pubDate}
-							/>
-						))
-					}
-				</ul>
-			</div>
+			<WritingSection showViewAll  />
 		</main>
 		<Footer />
 	</body>
@@ -62,33 +37,5 @@ const t = useTranslations(Astro.currentLocale, "home");
 		display: flex;
 		flex-direction: column;
 		gap: 2.5em;
-	}
-
-	.writing {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.writing-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-	}
-
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	a {
-		text-decoration: none;
-		font-size: 0.75rem;
-		color: var(--gray);
 	}
 </style>

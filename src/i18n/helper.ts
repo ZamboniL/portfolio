@@ -24,6 +24,7 @@ const translations = {
       writing: "writing",
     },
     writing: {
+      all: "View all",
       description: "Things I did for work and fun",
       title: "My writing",
     },
@@ -51,6 +52,7 @@ const translations = {
       writing: "escrita",
     },
     writing: {
+      all: "Ver todos",
       description: "O que eu fiz para trabalho e diversão",
       title: "Minha escrita",
     },
