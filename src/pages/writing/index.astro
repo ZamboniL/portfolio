@@ -1,22 +1,25 @@
 ---
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Post from "../../components/Post.astro";
 import { getCollection } from "astro:content";
+import { useTranslations } from "../../i18n/helper";
 
 const blog = await getCollection("writing");
 
 const posts = blog.toSorted(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const tHead = useTranslations(Astro.currentLocale, "head");
+const t = useTranslations(Astro.currentLocale, "writing");
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={tHead("title")} description={tHead("description")} />
 		<style>
 			ul {
 				display: flex;
@@ -95,8 +98,8 @@ const posts = blog.toSorted(
 		<Header />
 		<main>
 			<hgroup>
-				<h2>My writing</h2>
-				<p>Things I did for work and fun</p>
+				<h2>{t("title")}</h2>
+				<p>{t("description")}</p>
 			</hgroup>
 
 			<section>

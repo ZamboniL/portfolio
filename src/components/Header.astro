@@ -1,15 +1,18 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import { useTranslations } from "../i18n/helper";
+
+const tNav = useTranslations(Astro.currentLocale, "nav");
+const tHead = useTranslations(Astro.currentLocale, "head");
 ---
 
 <header>
 	<nav>
-		<h2><HeaderLink href="/">{SITE_TITLE}</HeaderLink></h2>
+		<h2><HeaderLink href="/">{tHead("title")}</HeaderLink></h2>
 		<div class="internal-links">
-			<HeaderLink href="/writing">writing</HeaderLink>
-			<HeaderLink href="/about">about</HeaderLink>
-			<HeaderLink href="/#en">EN</HeaderLink>
+			<HeaderLink href="/writing">{tNav("writing")}</HeaderLink>
+			<HeaderLink href="/about">{tNav("about")}</HeaderLink>
+			<HeaderLink href="/#en">{tNav("locale")}</HeaderLink>
 		</div>
 	</nav>
 </header>

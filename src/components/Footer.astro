@@ -1,15 +1,18 @@
 ---
-const today = new Date();
+import { useTranslations } from "../i18n/helper";
+
+const tFooter = useTranslations(Astro.currentLocale, "footer");
+const tHead = useTranslations(Astro.currentLocale, "head");
 ---
 
 <footer>
 	<hgroup>
-		<h3>Lucas Zamboni</h3>
-		<p>Software Engineer</p>
+		<h3>{tHead("title")}</h3>
+		<p>{tFooter("title")}</p>
 	</hgroup>
 	<div class="social-links">
 		<a href="https://github.com/ZamboniL" target="_blank">
-			<span class="sr-only">Go to my GitHub profile</span>
+			<span class="sr-only">{tFooter("github")}</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="16"
@@ -26,7 +29,7 @@ const today = new Date();
 			</svg>
 		</a>
 		<a href="https://www.linkedin.com/in/zamboniorioli/" target="_blank">
-			<span class="sr-only">Go to my LinkedIn profile</span>
+			<span class="sr-only">{tFooter("linkedin")}</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -74,7 +77,7 @@ const today = new Date();
 			</svg>
 		</a>
 		<a href="mailto:lucaszam0@gmail.com">
-			<span class="sr-only">Send me an email</span>
+			<span class="sr-only">{tFooter("email")}</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -105,6 +108,7 @@ const today = new Date();
 		</a>
 	</div>
 </footer>
+
 <style>
 	footer {
 		padding: 2em 1em 1em 1em;

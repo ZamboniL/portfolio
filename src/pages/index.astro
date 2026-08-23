@@ -1,35 +1,36 @@
 ---
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Post from "../components/Post.astro";
 import { getCollection } from "astro:content";
+import { useTranslations } from "../i18n/helper";
 
 const blog = await getCollection("writing");
 
 const posts = blog.toSorted(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const tHead = useTranslations(Astro.currentLocale, "head");
+const t = useTranslations(Astro.currentLocale, "home");
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={tHead("title")} description={tHead("description")} />
 	</head>
 	<body>
 		<Header />
 		<main>
 			<p>
-				Hi, I'm Lucas, a software engineer that is starting to blog about web
-				development, programming, and technology.
+				{t("intro")}
 			</p>
 
 			<div class="writing">
 				<div class="writing-header">
-					<h2>My writing</h2>
-					<a href="/blog">View all{" >"}</a>
+					<h2>{t("writing.title")}</h2>
+					<a href="/blog">{t("writing.all")}{" >"}</a>
 				</div>
 				<ul>
 					{
