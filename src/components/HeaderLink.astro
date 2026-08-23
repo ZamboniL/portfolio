@@ -29,4 +29,10 @@ const isActive = href === pathname || href === `/${subpath?.[0] || ""}`;
 		font-weight: bolder;
 		color: var(--primary);
 	}
+
+	@media (max-width: 600px) {
+		a {
+			font-size: 1rem;
+		}
+	}
 </style>

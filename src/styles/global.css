@@ -9,8 +9,11 @@
   --accent: #1e6168;
   --gray: #3b3535;
   --gray-light: #3b3535/70;
-
   --animation-delay: -0.1s;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
 }
 
 html,
@@ -19,6 +22,8 @@ body {
   height: 100%;
   align-items: center;
   flex-direction: column;
+  scrollbar-gutter: stable;
+
 }
 
 body {
@@ -31,18 +36,15 @@ body {
   color: var(--gray);
   font-size: 18px;
   line-height: 1.7;
+  width: 100%;
 
   animation: bg 200s infinite var(--animation-delay) ease-in-out;
 }
 header,
 main,
 footer {
-  width: 696px;
-  max-width: calc(100% - 2em);
-}
-
-main {
-  padding: 0em 1em;
+  max-width: 696px;
+  width: 100%;
 }
 
 footer {
