@@ -1,15 +1,17 @@
 ---
 import { DEFAULT_LOCALE } from "#i18n/consts.ts";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { titleShrink } from "#transitions/title.ts";
 
 interface Props {
+  id: string;
   title: string;
   description: string;
   date: Date;
   href: string;
 }
 
-const { date, description, title, href } = Astro.props;
+const { id, date, description, title, href } = Astro.props;
 
 const formatDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   dateStyle: "long",
@@ -25,8 +27,9 @@ const hrefWithLocale = getRelativeLocaleUrl(
 
 <li>
   <a href={hrefWithLocale}>
-    <strong transition:name="post:title" transition:animate="fade">{title}</strong>
-    <br />
+    <strong transition:name={`${id}:title`} transition:animate={titleShrink} data-post-title>
+      {title}
+    </strong>
     <span>
       {description}
     </span>
@@ -44,6 +47,8 @@ const hrefWithLocale = getRelativeLocaleUrl(
   }
 
   strong {
+    view-transition-class: post-title;
+    display: block;
     color: var(--gray);
     text-decoration: none;
     font-size: 1.5rem;

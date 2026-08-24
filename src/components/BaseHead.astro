@@ -74,3 +74,50 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site),
 	applyAnimationDelay();
 	document.addEventListener("astro:after-swap", applyAnimationDelay);
 </script>
+
+<script>
+	const NO_TITLE = { offset: 0, size: 0 };
+
+	function pixels(value: string) {
+		return Number(value.replace("px", ""));
+	}
+
+	function titleMetrics() {
+		const title = document.querySelector("[data-post-title]");
+		if (!title) {
+			return NO_TITLE;
+		}
+		const { fontSize, lineHeight } = getComputedStyle(title);
+		const size = pixels(fontSize);
+		const offset = (pixels(lineHeight) - size) / 2;
+
+		if (!Number.isFinite(size) || !Number.isFinite(offset)) {
+			return NO_TITLE;
+		}
+
+		return { offset, size };
+	}
+
+	let from = titleMetrics();
+
+	document.addEventListener("astro:before-swap", () => {
+		from = titleMetrics();
+	});
+
+	document.addEventListener("astro:after-swap", () => {
+		const to = titleMetrics();
+		const root = document.documentElement.style;
+		let scale = 1,
+			shiftNew = 0,
+			shiftOld = 0;
+		if (from.size > 0 && to.size > 0) {
+			scale = from.size / to.size;
+			shiftOld = to.offset * scale - from.offset;
+			shiftNew = from.offset / scale - to.offset;
+		}
+
+		root.setProperty("--title-scale", `${scale}`);
+		root.setProperty("--title-shift-old", `${shiftOld}px`);
+		root.setProperty("--title-shift-new", `${shiftNew}px`);
+	});
+</script>
