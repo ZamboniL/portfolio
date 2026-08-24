@@ -76,8 +76,13 @@ const tHead = useTranslations(Astro.currentLocale, "head");
 				</defs>
 			</svg>
 		</a>
-		<a href="mailto:lucaszam0@gmail.com">
+		<a
+			class="email"
+			href="mailto:lucaszam0@gmail.com"
+			data-copy-email
+		>
 			<span class="sr-only">{tFooter("email")}</span>
+			<span class="copied" aria-hidden="true">{tFooter("copied")}</span>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="20"
@@ -106,6 +111,7 @@ const tHead = useTranslations(Astro.currentLocale, "head");
 				</defs>
 			</svg>
 		</a>
+		<span class="sr-only" role="status" data-copy-status></span>
 	</div>
 </footer>
 
@@ -131,7 +137,121 @@ const tHead = useTranslations(Astro.currentLocale, "head");
 
 	.social-links {
 		display: flex;
+		align-items: center;
 		justify-content: center;
 		gap: 2rem;
 	}
+
+	.social-links a {
+		display: inline-flex;
+	}
+
+	.email {
+		position: relative;
+	}
+
+	.copied {
+		position: absolute;
+		bottom: calc(100% + 0.5rem);
+		left: 50%;
+		translate: -50% 0.25rem;
+		padding: 0.25em 0.5em;
+		border-radius: 4px;
+		background: var(--gray);
+		color: #fff;
+		font-size: 0.75rem;
+		line-height: 1.4;
+		white-space: nowrap;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.email[data-copied] .copied {
+		animation: copied-flash 1.6s ease forwards;
+	}
+
+	@keyframes copied-flash {
+		0%,
+		100% {
+			opacity: 0;
+			translate: -50% 0.25rem;
+		}
+		10%,
+		85% {
+			opacity: 1;
+			translate: -50% 0;
+		}
+	}
+
+	@keyframes copied-fade {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		10%,
+		85% {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.email[data-copied] .copied {
+			animation-name: copied-fade;
+			translate: -50% 0;
+		}
+	}
 </style>
+
+<script>
+	function showCopied(link: HTMLAnchorElement) {
+		const status = document.querySelector("[data-copy-status]");
+
+		delete link.dataset.copied;
+
+		link.getBoundingClientRect();
+		link.dataset.copied = "";
+
+		if (status) {
+			status.textContent = link.querySelector(".copied")?.textContent ?? "";
+		}
+	}
+
+	function canCopy(event: MouseEvent) {
+		return (
+			event.button === 0 &&
+			!event.metaKey &&
+			!event.ctrlKey &&
+			!event.altKey &&
+			!event.shiftKey &&
+			Boolean(navigator.clipboard)
+		);
+	}
+
+	async function copyText(text: string) {
+		try {
+			await navigator.clipboard.writeText(text);
+			return true;
+		} catch {
+			return false;
+		}
+	}
+
+	document.addEventListener("click", async (event) => {
+		const { target } = event;
+		const link = target instanceof Element &&
+			target.closest<HTMLAnchorElement>("a[data-copy-email]");
+
+		if (!link || !canCopy(event)) {
+			return;
+		}
+
+		event.preventDefault();
+
+		if (await copyText(link.href.replace(/^mailto:/u, ""))) {
+			showCopied(link);
+			return;
+		}
+
+		globalThis.location.href = link.href;
+	});
+</script>

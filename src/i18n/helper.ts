@@ -3,7 +3,8 @@ import { DEFAULT_LOCALE, LOCALES } from "./consts";
 const translations = {
   en: {
     footer: {
-      email: "Send me an email",
+      copied: "Copied!",
+      email: "Copy my email address",
       github: "Go to my GitHub profile",
       linkedin: "Go to my LinkedIn profile",
       title: "Software Engineer",
@@ -31,7 +32,8 @@ const translations = {
   },
   "pt-br": {
     footer: {
-      email: "Me envie um e-mail",
+      copied: "Copiado!",
+      email: "Copiar meu e-mail",
       github: "Visite meu Github",
       linkedin: "Visite meu LinkedIn",
       title: "Engenheiro de Software",
