@@ -57,7 +57,10 @@ const hrefWithLocale = getRelativeLocaleUrl(
   li {
     border-radius: 8px;
     cursor: pointer;
-    transition: 1.75s cubic-bezier(0.075, 0.82, 0.165, 1) box-shadow;
+    transform: translateY(0) scale(1);
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   span {
@@ -65,10 +68,31 @@ const hrefWithLocale = getRelativeLocaleUrl(
   }
 
   li:hover {
+    transform: translateY(-3px) scale(1.01);
     box-shadow:
-      0 2px 4px -1px rgba(0, 0, 0, 0.2),
-      0 4px 5px 0 rgba(0, 0, 0, 0.14),
-      0 1px 10px 0 rgba(0, 0, 0, 0.12);
+      0 1px 3px -2px rgba(0, 0, 0, 0.08),
+      0 6px 12px -4px rgba(0, 0, 0, 0.1),
+      0 14px 24px -10px rgba(0, 0, 0, 0.12);
+  }
+
+  li:active {
+    transform: translateY(-1px) scale(1);
+    transition-duration: 0.1s;
+    box-shadow:
+      0 1px 2px -1px rgba(0, 0, 0, 0.1),
+      0 3px 6px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    li,
+    li:active {
+      transform: none;
+      transition: box-shadow 0.2s ease;
+    }
+
+    li:hover {
+      transform: none;
+    }
   }
 
   @media (max-width: 696px) {
