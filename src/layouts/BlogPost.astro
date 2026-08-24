@@ -48,7 +48,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 	<body>
 		<Header />
-		<main transition:animate="slide">
+		<main>
 			<article>
 				<div class="hero-image">
 					{
@@ -68,7 +68,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 								)
 							}
 						</div>
-						<h1>{title}</h1>
+						<h1 transition:name="post:title" transition:animate="fade">{title}</h1>
 						<FormattedDate date={pubDate} />
 						<hr />
 					</div>

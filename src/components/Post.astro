@@ -25,7 +25,7 @@ const hrefWithLocale = getRelativeLocaleUrl(
 
 <li>
   <a href={hrefWithLocale}>
-    <strong>{title}</strong>
+    <strong transition:name="post:title" transition:animate="fade">{title}</strong>
     <br />
     <span>
       {description}
