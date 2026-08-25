@@ -24,6 +24,12 @@ const translations = {
       locale: "en",
       writing: "writing",
     },
+    terminal: {
+      pause: "Pause playback",
+      play: "Play the terminal session",
+      replay: "Replay the terminal session",
+      session: "Terminal session",
+    },
     writing: {
       all: "View all",
       description: "Things I did for work and fun",
@@ -52,6 +58,12 @@ const translations = {
       about: "sobre",
       locale: "pt-br",
       writing: "escrita",
+    },
+    terminal: {
+      pause: "Pausar a reprodução",
+      play: "Reproduzir a sessão de terminal",
+      replay: "Repetir a sessão de terminal",
+      session: "Sessão de terminal",
     },
     writing: {
       all: "Ver todos",

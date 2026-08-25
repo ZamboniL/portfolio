@@ -1,0 +1,655 @@
+---
+import { useTranslations } from "#i18n/helper.ts";
+
+export interface TerminalStep {
+	/** One or more commands. Every line gets its own prompt and is typed in order. */
+	command: string;
+	/** What the terminal printed back. Revealed in one burst, like the real thing. */
+	output?: string;
+	/** Extra dwell time (ms) after this step, for the beats that deserve one. */
+	pause?: number;
+}
+
+interface Props {
+	steps: TerminalStep[];
+	/** Name shown in the window chrome. */
+	title?: string;
+	prompt?: string;
+	/** Milliseconds per typed character. */
+	speed?: number;
+	autoplay?: boolean;
+}
+
+const t = useTranslations(Astro.currentLocale, "terminal");
+
+const { steps, title = "bash", prompt = "$", speed = 26, autoplay = true } = Astro.props;
+
+const session = steps.map((step) => ({
+	commands: step.command.trim().split("\n").map((line) => line.trim()).filter(Boolean),
+	output: step.output?.replaceAll(/^\n+|\s+$/gu, ""),
+	pause: step.pause,
+}));
+
+const transcript = session
+	.map(({ commands, output }) =>
+		[...commands.map((command) => `${prompt} ${command}`), output].filter(Boolean).join("\n")
+	)
+	.join("\n");
+---
+
+<terminal-playback
+	class="terminal"
+	role="group"
+	aria-label={`${t("session")}: ${title}`}
+	data-speed={speed}
+	data-autoplay={autoplay ? "" : undefined}
+	data-label-play={t("play")}
+	data-label-pause={t("pause")}
+	data-label-replay={t("replay")}
+>
+	<div class="chrome">
+		<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+		<span class="name">{title}</span>
+		<div class="controls" data-controls hidden>
+			<span class="progress" data-progress aria-hidden="true"></span>
+			<button class="control" type="button" data-toggle aria-label={t("play")}>
+				<svg class="icon play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14">
+					<path d="M4.75 3.3 12.4 8 4.75 12.7Z" fill="currentColor" stroke="currentColor" stroke-width="1.5"
+						stroke-linejoin="round"></path>
+				</svg>
+				<svg class="icon pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14">
+					<path d="M5.75 3.5v9M10.25 3.5v9" fill="none" stroke="currentColor" stroke-width="1.75"
+						stroke-linecap="round"></path>
+				</svg>
+			</button>
+			<button class="control" type="button" data-restart aria-label={t("replay")}>
+				<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14">
+					<path d="M13.5 8a5.5 5.5 0 1 1-1.72-3.99M13.6 1.9v2.9h-2.9" fill="none" stroke="currentColor"
+						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<div class="screen" data-screen>
+		{
+			session.map((step) => (
+				<div class="step" data-step data-pause={step.pause}>
+					{step.commands.map((command) => (
+						<div class="line" data-line>
+							<span class="prompt" aria-hidden="true">{prompt}</span>
+							<span class="command" data-command data-text={command}>{command}</span>
+						</div>
+					))}
+					{step.output && <pre class="output" data-output>{step.output}</pre>}
+				</div>
+			))
+		}
+		<div class="line idle" data-idle>
+			<span class="prompt" aria-hidden="true">{prompt}</span>
+			<span class="command"></span>
+			<span class="cursor" data-cursor aria-hidden="true"></span>
+		</div>
+	</div>
+
+	<pre class="sr-only" data-transcript hidden>{transcript}</pre>
+</terminal-playback>
+
+<style>
+	.terminal {
+		--term-bg: #2b2524;
+		--term-chrome: #3a3231;
+		--term-line: #4a3f3d;
+		--term-text: #efe7e3;
+		--term-muted: #b1a29d;
+		--term-prompt: #7fbcbf;
+
+		display: block;
+		margin: 0 0 2em;
+		border-radius: 8px;
+		overflow: hidden;
+		background: var(--term-bg);
+		box-shadow: 0 12px 30px -18px rgb(59 53 53 / 70%);
+		font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+		font-size: 0.8125rem;
+		line-height: 1.65;
+		color: var(--term-text);
+	}
+
+	.chrome {
+		display: flex;
+		align-items: center;
+		gap: 0.75em;
+		padding: 0.5em 0.75em;
+		background: var(--term-chrome);
+		border-bottom: 1px solid var(--term-line);
+	}
+
+	.dots {
+		display: flex;
+		gap: 0.4em;
+	}
+
+	.dots i {
+		width: 0.7em;
+		height: 0.7em;
+		border-radius: 50%;
+		background: var(--term-line);
+	}
+
+	.name {
+		color: var(--term-muted);
+		font-size: 0.75rem;
+		letter-spacing: 0.02em;
+	}
+
+	.controls {
+		display: flex;
+		align-items: center;
+		gap: 0.25em;
+		margin-left: auto;
+	}
+
+	.controls[hidden] {
+		display: none;
+	}
+
+	.progress {
+		margin-right: 0.5em;
+		color: var(--term-muted);
+		font-size: 0.6875rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.control {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.85em;
+		height: 1.85em;
+		padding: 0;
+		border: 0;
+		border-radius: 4px;
+		background: none;
+		color: var(--term-muted);
+		cursor: pointer;
+	}
+
+	.control:hover,
+	.control:focus-visible {
+		background: rgb(255 255 255 / 8%);
+		color: var(--term-text);
+	}
+
+	.control:focus-visible {
+		outline: 2px solid var(--term-prompt);
+		outline-offset: -2px;
+	}
+
+	.icon.pause,
+	[data-state="playing"] .icon.play {
+		display: none;
+	}
+
+	[data-state="playing"] .icon.pause {
+		display: block;
+	}
+
+	.screen {
+		padding: 1em 1.15em 1.25em;
+		overflow-wrap: anywhere;
+	}
+
+	.line {
+		display: flex;
+		gap: 0.6em;
+		margin: 0;
+	}
+
+	.prompt {
+		color: var(--term-prompt);
+		user-select: none;
+	}
+
+	.command {
+		min-width: 0;
+		white-space: pre-wrap;
+	}
+
+	.output {
+		all: unset;
+		display: block;
+		margin: 0 0 0.35em;
+		white-space: pre-wrap;
+		color: var(--term-muted);
+		font: inherit;
+	}
+
+	.step + .step {
+		margin-top: 0.35em;
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 0.55em;
+		height: 1.1em;
+		translate: 0 0.2em;
+		background: var(--term-text);
+		animation: terminal-blink 1.1s steps(1, end) infinite;
+	}
+
+	/* Playback states. These rules only ever hide: without JS nothing is set and the
+		 whole session renders as a plain, complete transcript. */
+	.step[data-state="pending"],
+	.line[data-state="pending"],
+	.step[data-state="active"] .output {
+		visibility: hidden;
+	}
+
+	.step[data-state="done"] .output {
+		animation: terminal-in 200ms ease both;
+	}
+
+	[data-typing] .cursor {
+		animation: none;
+	}
+
+	@keyframes terminal-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes terminal-in {
+		from {
+			opacity: 0;
+			translate: 0 -0.15em;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cursor {
+			animation: none;
+		}
+
+		.step[data-state="done"] .output {
+			animation: none;
+		}
+	}
+</style>
+
+<script>
+	/* Playback is sequential by nature (await in loop) and holds a fair amount of
+		 state, and the DOM hands back `null`. Those rules do not apply here. */
+	/* eslint-disable max-lines, max-statements, no-await-in-loop, unicorn/no-null */
+	const ENTER_DELAY = 220,
+		JITTER = 0.7,
+		LINE_DELAY = 140,
+		OUTPUT_DELAY = 130,
+		STEP_DELAY = 850,
+		VISIBLE_RATIO = 0.3;
+
+	interface Timer {
+		id: number;
+		remaining: number;
+		resolve: () => void;
+		startedAt: number;
+	}
+
+	class TerminalPlayback extends HTMLElement {
+		#cursor: HTMLElement | null = null;
+		#idle: HTMLElement | null = null;
+		#observer: IntersectionObserver | null = null;
+		#progress: HTMLElement | null = null;
+		#steps: HTMLElement[] = [];
+		#timer: Timer | null = null;
+		#toggle: HTMLButtonElement | null = null;
+
+		#autoPaused = false;
+		#done = false;
+		#index = 0;
+		#playing = false;
+		#ready = false;
+		#reduced = false;
+		#run = 0;
+		#running = false;
+		#skipping = false;
+		#speed = 26;
+		#started = false;
+
+		connectedCallback() {
+			if (this.#ready) {
+				return;
+			}
+
+			this.#cursor = this.querySelector("[data-cursor]");
+			this.#idle = this.querySelector("[data-idle]");
+			this.#progress = this.querySelector("[data-progress]");
+			this.#toggle = this.querySelector("[data-toggle]");
+			this.#steps = [...this.querySelectorAll<HTMLElement>("[data-step]")];
+
+			if (!this.#cursor || !this.#idle || this.#steps.length === 0) {
+				return;
+			}
+
+			this.#ready = true;
+			this.#speed = Number(this.dataset.speed) || this.#speed;
+			this.#reduced = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			// Screen readers follow the static transcript; the animated screen is decoration.
+			this.querySelector("[data-screen]")?.setAttribute("aria-hidden", "true");
+			this.querySelector<HTMLElement>("[data-transcript]")?.removeAttribute("hidden");
+			this.querySelector<HTMLElement>("[data-controls]")?.removeAttribute("hidden");
+
+			this.#toggle?.addEventListener("click", () => this.#onToggle());
+			this.querySelector("[data-restart]")?.addEventListener("click", () => this.#restart());
+			this.querySelector("[data-screen]")?.addEventListener("click", () => this.#onScreenClick());
+
+			this.#reset();
+			this.#update();
+			this.#watch();
+		}
+
+		disconnectedCallback() {
+			this.#observer?.disconnect();
+			this.#observer = null;
+			this.#cancel();
+			this.#ready = false;
+		}
+
+		/** Autoplay once on entry, and never talk to an empty room: pause when scrolled away. */
+		#watch() {
+			if (!("IntersectionObserver" in globalThis)) {
+				return;
+			}
+
+			this.#observer = new IntersectionObserver(
+				([entry]) => {
+					if (!entry) {
+						return;
+					}
+					if (entry.isIntersecting) {
+						if (this.#autoPaused) {
+							this.#autoPaused = false;
+							this.#play();
+						} else if (this.dataset.autoplay !== undefined && !this.#started) {
+							this.#play();
+						}
+						return;
+					}
+					if (this.#playing) {
+						this.#autoPaused = true;
+						this.#pause();
+					}
+				},
+				{ threshold: VISIBLE_RATIO },
+			);
+
+			this.#observer.observe(this);
+		}
+
+		#onToggle() {
+			this.#autoPaused = false;
+			if (this.#done) {
+				this.#restart();
+			} else if (this.#playing) {
+				this.#pause();
+			} else {
+				this.#play();
+			}
+		}
+
+		#onScreenClick() {
+			if (!globalThis.getSelection()?.isCollapsed) {
+				return;
+			}
+			if (this.#playing) {
+				this.#skip();
+			} else if (!this.#done) {
+				this.#play();
+			}
+		}
+
+		#update() {
+			const total = this.#steps.length;
+
+			this.dataset.state = this.#state();
+
+			if (this.#progress) {
+				this.#progress.textContent = `${Math.min(this.#index + 1, total)} / ${total}`;
+			}
+
+			this.#toggle?.setAttribute("aria-label", this.#toggleLabel() ?? "");
+		}
+
+		#state() {
+			if (this.#done) {
+				return "done";
+			}
+			if (this.#playing) {
+				return "playing";
+			}
+			if (this.#running) {
+				return "paused";
+			}
+			return "idle";
+		}
+
+		#toggleLabel() {
+			if (this.#done) {
+				return this.dataset.labelReplay;
+			}
+			if (this.#playing) {
+				return this.dataset.labelPause;
+			}
+			return this.dataset.labelPlay;
+		}
+
+		#reset() {
+			this.#cancel();
+			this.#index = 0;
+			this.#done = false;
+			this.#skipping = false;
+
+			for (const step of this.#steps) {
+				step.dataset.state = "pending";
+				for (const line of step.querySelectorAll<HTMLElement>("[data-line]")) {
+					line.dataset.state = "pending";
+				}
+				for (const command of step.querySelectorAll<HTMLElement>("[data-command]")) {
+					command.textContent = "";
+				}
+			}
+
+			if (this.#idle && this.#cursor) {
+				this.#idle.dataset.state = "pending";
+				this.#idle.append(this.#cursor);
+			}
+		}
+
+		#restart() {
+			this.#reset();
+			this.#update();
+			this.#play();
+		}
+
+		#play() {
+			this.#playing = true;
+			this.#started = true;
+			this.#update();
+
+			if (this.#running) {
+				this.#startTimer();
+				return;
+			}
+
+			void this.#loop(++this.#run);
+		}
+
+		#pause() {
+			this.#playing = false;
+			this.#stopTimer();
+			this.#update();
+		}
+
+		#skip() {
+			this.#skipping = true;
+			this.#flush();
+		}
+
+		async #loop(run: number) {
+			this.#running = true;
+
+			for (let index = this.#index; index < this.#steps.length; index++) {
+				this.#index = index;
+				this.#update();
+
+				if (!(await this.#runStep(this.#steps[index]!, run))) {
+					if (run === this.#run) {
+						this.#running = false;
+					}
+					return;
+				}
+			}
+
+			this.#running = false;
+			this.#finish();
+		}
+
+		async #runStep(step: HTMLElement, run: number) {
+			const commands = [...step.querySelectorAll<HTMLElement>("[data-command]")],
+				lines = [...step.querySelectorAll<HTMLElement>("[data-line]")];
+
+			step.dataset.state = "active";
+
+			for (const [index, command] of commands.entries()) {
+				lines[index]!.dataset.state = "done";
+				command.after(this.#cursor!);
+
+				if (!(await this.#type(command, command.dataset.text ?? "", run))) {
+					return false;
+				}
+				if (!(await this.#wait(ENTER_DELAY, run))) {
+					return false;
+				}
+				if (index < commands.length - 1 && !(await this.#wait(LINE_DELAY, run))) {
+					return false;
+				}
+			}
+
+			if (step.querySelector("[data-output]") && !(await this.#wait(OUTPUT_DELAY, run))) {
+				return false;
+			}
+
+			step.dataset.state = "done";
+			this.#skipping = false;
+
+			return this.#wait(Number(step.dataset.pause) || STEP_DELAY, run);
+		}
+
+		async #type(target: HTMLElement, text: string, run: number) {
+			if (this.#reduced || this.#skipping) {
+				target.textContent = text;
+				return true;
+			}
+
+			target.textContent = "";
+			this.dataset.typing = "";
+
+			for (const char of text) {
+				if (!(await this.#wait(this.#speed * (1 - JITTER / 2 + Math.random() * JITTER), run))) {
+					delete this.dataset.typing;
+					return false;
+				}
+				if (this.#skipping) {
+					break;
+				}
+				target.textContent += char;
+			}
+
+			target.textContent = text;
+			delete this.dataset.typing;
+
+			return true;
+		}
+
+		#finish() {
+			this.#playing = false;
+			this.#done = true;
+
+			if (this.#idle && this.#cursor) {
+				this.#idle.dataset.state = "done";
+				this.#idle.append(this.#cursor);
+			}
+
+			this.#update();
+		}
+
+		/* Timing. Sleeps are pausable: the countdown only burns while playing. */
+
+		async #wait(ms: number, run: number) {
+			await this.#sleep(ms);
+			return run === this.#run;
+		}
+
+		#sleep(ms: number) {
+			return new Promise<void>((resolve) => {
+				if (this.#skipping) {
+					resolve();
+					return;
+				}
+				this.#timer = { id: 0, remaining: ms, resolve, startedAt: 0 };
+				this.#startTimer();
+			});
+		}
+
+		#startTimer() {
+			const timer = this.#timer;
+			if (!timer || timer.id !== 0 || !this.#playing) {
+				return;
+			}
+
+			timer.startedAt = performance.now();
+			timer.id = globalThis.setTimeout(() => {
+				this.#timer = null;
+				timer.resolve();
+			}, timer.remaining);
+		}
+
+		#stopTimer() {
+			const timer = this.#timer;
+			if (!timer || timer.id === 0) {
+				return;
+			}
+
+			clearTimeout(timer.id);
+			timer.id = 0;
+			timer.remaining = Math.max(0, timer.remaining - (performance.now() - timer.startedAt));
+		}
+
+		/** Resolve the pending sleep right now, without waiting it out. */
+		#flush() {
+			const timer = this.#timer;
+			if (!timer) {
+				return;
+			}
+
+			this.#stopTimer();
+			this.#timer = null;
+			timer.resolve();
+		}
+
+		/** Abandon the running loop: it checks the run id after every await. */
+		#cancel() {
+			this.#run++;
+			this.#running = false;
+			this.#playing = false;
+			this.#flush();
+			delete this.dataset.typing;
+		}
+	}
+
+	if (!customElements.get("terminal-playback")) {
+		customElements.define("terminal-playback", TerminalPlayback);
+	}
+</script>

@@ -1,0 +1,109 @@
+---
+title: "A Git Odyssey"
+description: "Story of my small contribution to the biggest version control system"
+pubDate: "Aug 22 2026"
+---
+
+import Terminal from "#components/Terminal.astro";
+
+Last month I was refactoring a specific feature for what felt like the eighth time, _as is my right to do!_ When I decided to move a file, but not in the way I'm accustomed to, **no**. Why be a developer if you cant try out new toys while toiling away at your job.
+
+When you're working inside a repository and you need to move something, what do you, my dear reader, do? Do you use the simple but effective `mv`? Do you just drag your unwashed mouse through the destroyed piece of fabric and foam that is your deskmat? See, thats where we are different, my newly sophisticated mind decided that the tool for this task should be **`git mv`**.
+
+## But why?
+
+A couple of months ago my company gave me and my team access to an AI Agent, and I know that is late to the party, but not everywhere has the unlimited budget of the free world, the point is, a coding agent does not take the most mundane paths to accomplish it's objectives, if you ever take a gander at the command log that it runs there's a mishmash of quick Python hacked together; cats; greps and a whole jamboree of commands that no human dares to imitate for it's machine spells are too complicated for our thimble minds.
+
+But one particular piece of CLI hackery was always stealing my attention: whenever the agent needed to move or rename files, it never used `mv`, one of the oldest and most ubiquitous utilities in the Unix world. Instead, it always used `git`, and that made me question **why**.
+
+---
+
+## What makes git mv special
+
+Maybe this is obvious to you reader, maybe I'm just a meager web developer that does not know a thing about software outside of my top five frontend frameworks _(shoutout to Astro the technology this blog is built on)_.
+
+The point is that _I_ did not know, so _I_ went seeking knowledge. After perusing through the extensive and resourceful documentation I was enlightned, so I'll try to explain it.
+
+File tracking is a complicated business, try the following:
+
+<Terminal
+  steps={[
+    { command: "mkdir repo && cd repo" },
+    {
+      command: 'git init && echo "secrete sauce" >>a',
+      output: "Initialized empty Git repository in /home/you/repo/.git/",
+    },
+    {
+      command: 'git add a && git commit -m "file"',
+      output: `[main (root-commit) 4f0c9d1] file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 a`,
+    },
+    { command: "mv a b" },
+    {
+      command: "git status",
+      output: `On branch main
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    a
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        b
+
+no changes added to commit (use "git add" and/or "git commit -a")`,
+    },
+  ]}
+/>
+
+Did you catch the nuance? When we move/rename (the difference is unsignificant) what is detected by `git` is that we deleted `a` and created `b`, that seems fine, there's effectivelly no difference, the important part is that `b` is there and `a` is no more, so we could for example commit only `b`, after all thats our file right?
+
+<Terminal
+  steps={[
+    {
+      command: 'git add b && git commit -m "b"',
+      output: `[main 1a7ee3c] b
+ 1 file changed, 1 insertion(+)
+ create mode 100644 b`,
+    },
+    {
+      command: "git status",
+      output: `On branch main
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    a
+
+no changes added to commit (use "git add" and/or "git commit -a")`,
+    },
+  ]}
+/>
+
+And here is the problem, a file move for `git` is not a single step operation, we delete `a` and create `b`, this two step approach leaves time for interventions, the file actually still exists on the record, if we pushed our current state to a remote repository both `a` and `b` will be present, because we only added one of the steps.
+
+The solution that `git` found for this is to create a command that makes these two steps at once, you specify what you are trying to do guaranteeing that it wont desync, that is the function of `git mv`.
+
+<Terminal
+  steps={[
+    { command: "mkdir repo && cd repo" },
+    {
+      command: 'git init && echo "secrete sauce" >>a',
+      output: "Initialized empty Git repository in /home/you/repo/.git/",
+    },
+    {
+      command: 'git add a && git commit -m "file"',
+      output: `[main (root-commit) 4f0c9d1] file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 a`,
+    },
+    { command: "git mv a b", pause: 1200 },
+    {
+      command: "git status",
+      output: `On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    a -> b`,
+    },
+  ]}
+/>

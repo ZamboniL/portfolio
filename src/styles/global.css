@@ -8,7 +8,7 @@
   --primary: #8c162c;
   --accent: #1e6168;
   --gray: #3b3535;
-  --gray-light: #3b3535/70;
+  --gray-light: #3b353516;
   --animation-delay: -0.1s;
 }
 
@@ -43,7 +43,7 @@ body {
 header,
 main,
 footer {
-  max-width: 696px;
+  max-width: 720px;
   width: 100%;
 }
 
@@ -108,9 +108,9 @@ img {
   border-radius: 8px;
 }
 code {
-  padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
-  border-radius: 2px;
+  padding: 1px 4px;
+  background-color: var(--gray-light);
+  border-radius: 4px;
 }
 pre {
   padding: 1.5em;
@@ -127,9 +127,10 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: 1px solid var(--gray-light);
+  margin: 2em 0;
 }
-@media (max-width: 696px) {
+@media (max-width: 720px) {
   body {
     font-size: 18px;
   }
